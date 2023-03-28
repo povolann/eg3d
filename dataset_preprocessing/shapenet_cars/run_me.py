@@ -17,23 +17,24 @@ import subprocess
 
 if __name__ == '__main__':
     with tempfile.TemporaryDirectory() as working_dir:
-        download_name = 'cars_train.zip'
-        url = 'https://drive.google.com/uc?id=1bThUNtIHx4xEQyffVBSf82ABDDh2HlFn'
-        output_dataset_name = 'cars_128.zip'
+        # download_name = 'cars_train.zip'
+        # url = 'https://drive.google.com/uc?id=1bThUNtIHx4xEQyffVBSf82ABDDh2HlFn'
+        output_dataset_name = 'carsgr_128_500.zip'
 
         dir_path = os.path.dirname(os.path.realpath(__file__))
-        extracted_data_path = os.path.join(working_dir, os.path.splitext(download_name)[0])
+        # extracted_data_path = os.path.join(working_dir, os.path.splitext(download_name)[0])
+        extracted_data_path = '/home/anya/Programs/eg3d/eg3d/datasets/cars_128.zip'
 
-        print("Downloading data...")
-        zipped_dataset = os.path.join(working_dir, download_name)
-        gdown.download(url, zipped_dataset, quiet=False)
+        # print("Downloading data...")
+        # zipped_dataset = os.path.join(working_dir, download_name)
+        # gdown.download(url, zipped_dataset, quiet=False)
 
-        print("Unzipping downloaded data...")
-        shutil.unpack_archive(zipped_dataset, working_dir)
+        # print("Unzipping downloaded data...")
+        # shutil.unpack_archive(zipped_dataset, working_dir)
 
-        print("Converting camera parameters...")
-        cmd = f"python {os.path.join(dir_path, 'preprocess_shapenet_cameras.py')} --source={extracted_data_path}"
-        subprocess.run([cmd], shell=True)
+        # print("Converting camera parameters...")
+        # cmd = f"python {os.path.join(dir_path, 'preprocess_shapenet_cameras.py')} --source={extracted_data_path}"
+        # subprocess.run([cmd], shell=True)
 
         print("Creating dataset zip...")
         cmd = f"python {os.path.join(dir_path, '../../eg3d', 'dataset_tool.py')}"

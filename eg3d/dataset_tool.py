@@ -440,6 +440,7 @@ def convert_dataset(
 
         # Save the image as an uncompressed PNG.
         img = PIL.Image.fromarray(img, { 1: 'L', 3: 'RGB', 4: 'RGBA'}[channels])
+        #img = img.convert('L')
         if channels == 4: img = img.convert('RGB')
         image_bits = io.BytesIO()
         img.save(image_bits, format='png', compress_level=0, optimize=False)

@@ -39,7 +39,7 @@ class TriPlaneGenerator(torch.nn.Module):
         self.ray_sampler = RaySampler()
         self.backbone = StyleGAN2Backbone(z_dim, c_dim, w_dim, img_resolution=256, img_channels=32*3, mapping_kwargs=mapping_kwargs, **synthesis_kwargs)
         self.superresolution = dnnlib.util.construct_class_by_name(class_name=rendering_kwargs['superresolution_module'], channels=32, img_resolution=img_resolution, sr_num_fp16_res=sr_num_fp16_res, sr_antialias=rendering_kwargs['sr_antialias'], **sr_kwargs)
-        self.decoder = OSGDecoder(32, {'decoder_lr_mul': rendering_kwargs.get('decoder_lr_mul', 1), 'decoder_output_dim': 32})
+        self.decoder = OSGDecoder(8, {'decoder_lr_mul': rendering_kwargs.get('decoder_lr_mul', 1), 'decoder_output_dim': 32})
         self.neural_rendering_resolution = 64
         self.rendering_kwargs = rendering_kwargs
     
@@ -83,7 +83,7 @@ class TriPlaneGenerator(torch.nn.Module):
         depth_image = depth_samples.permute(0, 2, 1).reshape(N, 1, H, W)
 
         # Run superresolution to get final image
-        rgb_image = feature_image[:, :3]
+        rgb_image = feature_image[:, :1]
         sr_image = self.superresolution(rgb_image, feature_image, ws, noise_mode=self.rendering_kwargs['superresolution_noise_mode'], **{k:synthesis_kwargs[k] for k in synthesis_kwargs.keys() if k != 'noise_mode'})
 
         return {'image': sr_image, 'image_raw': rgb_image, 'image_depth': depth_image}

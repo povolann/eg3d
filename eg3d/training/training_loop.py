@@ -34,8 +34,10 @@ from training.crosssection_utils import sample_cross_section
 
 def setup_snapshot_image_grid(training_set, random_seed=0):
     rnd = np.random.RandomState(random_seed)
-    gw = np.clip(7680 // training_set.image_shape[2], 7, 32)
-    gh = np.clip(4320 // training_set.image_shape[1], 4, 32)
+    #gw = np.clip(7680 // training_set.image_shape[2], 7, 32)
+    gw = np.clip(7680 // training_set.image_shape[2], 1, 3) # 32 -> 4
+    #gh = np.clip(4320 // training_set.image_shape[1], 4, 32) 
+    gh = np.clip(4320 // training_set.image_shape[1], 1, 3) # 32 -> 4
 
     # No labels => show random subset of training samples.
     if not training_set.has_labels:
@@ -365,6 +367,7 @@ def training_loop(
             save_image_grid(images, os.path.join(run_dir, f'fakes{cur_nimg//1000:06d}.png'), drange=[-1,1], grid_size=grid_size)
             save_image_grid(images_raw, os.path.join(run_dir, f'fakes{cur_nimg//1000:06d}_raw.png'), drange=[-1,1], grid_size=grid_size)
             save_image_grid(images_depth, os.path.join(run_dir, f'fakes{cur_nimg//1000:06d}_depth.png'), drange=[images_depth.min(), images_depth.max()], grid_size=grid_size)
+            # this is actually gray image, try to copy saving param for my data
 
             #--------------------
             # # Log forward-conditioned images

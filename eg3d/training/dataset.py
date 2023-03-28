@@ -224,6 +224,10 @@ class ImageFolderDataset(Dataset):
                 image = np.array(PIL.Image.open(f))
         if image.ndim == 2:
             image = image[:, :, np.newaxis] # HW => HWC
+            #image = np.stack((image,)*3, axis=-1) # HW => HWC, but C is not 1, but 3
+        #img = PIL.Image.fromarray(image, 'RGB')
+        #img.save('testing.png')
+        #img.show()
         image = image.transpose(2, 0, 1) # HWC => CHW
         return image
 

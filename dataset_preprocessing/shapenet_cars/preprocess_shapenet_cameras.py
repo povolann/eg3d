@@ -65,7 +65,6 @@ if __name__ == '__main__':
     with open(os.path.join(dataset_path, 'cameras.json'), 'w') as outfile:
         json.dump(cameras, outfile, indent=4)
 
-
     camera_dataset_file = os.path.join(args.source, 'cameras.json')
 
     with open(camera_dataset_file, "r") as f:
