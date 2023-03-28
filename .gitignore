@@ -28,3 +28,6 @@ eg3d_results
 *.zip
 *.png
 eg3d/training-runs
+dataset_preprocessing/chest/chest/*
+dataset_preprocessing/knee/knee/*
+eg3d/.vscode/*
